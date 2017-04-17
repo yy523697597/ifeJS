@@ -38,9 +38,9 @@
 					return item[1] > 60;
 				})
 				list.sort(function(x, y) {
-					return x[1] - y[1];
+					return y[1] - x[1];
 				})
-				list.reverse();
+//				list.reverse();
 				list.forEach(function(val, index, arr) {
 					var li = document.createElement('li');
 					ul.appendChild(li);
