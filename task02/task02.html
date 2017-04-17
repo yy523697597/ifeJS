@@ -40,6 +40,7 @@
 				list.sort(function(x, y) {
 					return x[1] - y[1];
 				})
+				list.reverse();
 				list.forEach(function(val, index, arr) {
 					var li = document.createElement('li');
 					ul.appendChild(li);
