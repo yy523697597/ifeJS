@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>IFE JS task04</title>
+		<style>
+			span {
+				margin-top: 10px;
+				display: inline-block;
+				text-align: center;
+				width: 30px;
+				background-color: red;
+				color: #fff;
+				margin-right: 5px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div>
+			<input type="text" id="in" />
+			<button id="leftIn">左侧入</button>
+			<button id="rightIn">右侧入</button>
+			<button id="leftOut">左侧出</button>
+			<button id="rightOut">右侧出</button>
+		</div>
+		<div id="container">
+			<span>10</span>
+			<span>3</span>
+			<span>4</span>
+			<span>12</span>
+			<span>11</span>
+			<span>30</span>
+		</div>
+		<script>
+			//获取页面原始的值，组成一个数组
+			var list = document.getElementById('container').getElementsByTagName('span');
+			var arr = [];
+			for (var i = 0; i < list.length; i++) {
+				arr.push(list[i].innerText);
+			}
+
+			var leftInBtn = document.getElementById('leftIn');
+			var rightInBtn = document.getElementById('rightIn');
+			var lefttOutBtn = document.getElementById('lefttOut');
+			var rightOutBtn = document.getElementById('rightOut');
+
+			leftInBtn.onclick = function() {
+				var container = document.getElementById('container');
+				var value = inputBox.value;
+
+				//获取container的第一个子元素
+				var firstSpan = container.firstChild;
+				//生成一个span元素
+				var span = document.createElement('span');
+				span.innerText = value;
+				//将生成的span插入到第一个子元素之前
+				container.insertBefore(span, firstSpan);
+				//将添加元素的值，加入到数组的头部
+				arr.unshift(value);
+			}
+
+			rightInBtn.onclick = function() {
+				var value = inputBox.value;
+				var span = document.createElement('span');
+				span.innerText = value;
+				container.appendChild(span);
+				arr.push(value);
+			};
+		</script>
+	</body>
+
+</html>
