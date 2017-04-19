@@ -13,7 +13,7 @@
 				margin-top: 10px;
 				display: inline-block;
 				text-align: center;
-				width: 30px;
+				width: 60px;
 				background-color: red;
 				color: #fff;
 				margin-right: 5px;
@@ -55,7 +55,7 @@
 
 	<body>
 		<div>
-			<textarea name="inputBox" rows="" cols=""></textarea>
+			<textarea name="inputBox" rows="" cols="" id="in"></textarea>
 
 			<button id="leftIn">左侧入</button>
 			<button id="rightIn">右侧入</button>
@@ -64,81 +64,112 @@
 
 		</div>
 		<div>
-			<input type="text" id="search" />
+			<input type="text" id="match" />
 			<button id="search">搜索</button>
 		</div>
 		<div id="container">
-			<span>10</span>
-			<span>3</span>
-			<span>4</span>
-			<span>12</span>
-			<span>11</span>
-			<span>30</span>
+
 		</div>
 		<script>
 			var leftInBtn = document.getElementById('leftIn');
 			var rightInBtn = document.getElementById('rightIn');
 			var leftOutBtn = document.getElementById('leftOut');
 			var rightOutBtn = document.getElementById('rightOut');
+
 			var container = document.getElementById('container');
-			var spans = document.getElementsByTagName('span');
-			var textarea = document.getElementsByTagName('textarea');
-			var arr = [];
+			var textareaInput = document.getElementById('in');
+			var matchValue = document.getElementById('match').value;
+			var search = document.getElementById('search');
+			var spans = document.getElementById('container').getElementsByTagName('span');
+			//初始化
+			function init() {
+				//onclick后面的函数不能有括号
+				leftInBtn.onclick = leftIn;
+				rightInBtn.onclick = rightIn;
+				leftOutBtn.onclick = leftOut;
+				rightOutBtn.onclick = rightOut;
+				container.onclick = clickRemove;
+				search.onclick = matchInput;
+			}
+			init();
+
 			//获取textarea输入值，并存储到数组中
 			function getInputValue() {
-				var str = textarea.value;
-				var tempArr = str.split('//');
+				var inputValue = textareaInput.value;
+				//正则表达式不能用引号扩起来，匹配空格，中英文逗号，换行符
+				var inputArray = inputValue.split(/\s+|\,|，|\n/);
+				//重置输入框
+				textareaInput.value = '';
+				return inputArray;
 			}
 
-			leftInBtn.onclick = function() {
+			//创建span元素
+			function createNode(value) {
+				var span = document.createElement('span');
+				span.innerText = value;
+				return span;
+			}
 
-				var container = document.getElementById('container');
-				var inputBox = document.getElementById('in');
-				var value = inputBox.value;
-				if(value) {
+			function leftIn() {
+				var inputArray = getInputValue();
+
+				inputArray.forEach(function(val, index, arr) {
+					var span = createNode(inputArray[index]);
 					//获取container的第一个子元素
 					var firstSpan = container.firstChild;
-					//生成一个span元素
-					var span = document.createElement('span');
-					span.innerText = value;
 					//将生成的span插入到第一个子元素之前
 					container.insertBefore(span, firstSpan);
-				}
-
+				});
 			}
 
-			rightInBtn.onclick = function() {
-				var inputBox = document.getElementById('in');
-				var value = inputBox.value;
-				if(value) {
-					var span = document.createElement('span');
-					span.innerText = value;
+			function rightIn() {
+				var inputArray = getInputValue();
+
+				inputArray.forEach(function(val, index, arr) {
+					var span = createNode(inputArray[index]);
+					//添加到container元素最后面
 					container.appendChild(span);
-				}
+				});
 
 			};
 
-			leftOutBtn.onclick = function() {
-				var container = document.getElementById('container');
-				var firstSpan = container.children[0];
+			function leftOut() {
 
+				var firstSpan = container.children[0];
 				var spanValue = firstSpan.innerText;
 				container.removeChild(firstSpan);
 				alert(spanValue);
 			};
 
-			rightOutBtn.onclick = function() {
-				var container = document.getElementById('container');
-				var spans = document.getElementById('container').getElementsByTagName('span')
+			function rightOut() {
+
 				var lastSpan = container.children[spans.length - 1];
 				var spanValue = lastSpan.innerText;
 				container.removeChild(lastSpan);
 				alert(spanValue);
 			}
-			for(var i = 0; i < spans.length; i++) {
-				spans[i].onclick = function() {
-					container.removeChild(this);
+
+			//点击container中的span，移除span
+			function clickRemove(evt) {
+				var target = evt.target;
+				if (target.nodeName.toLocaleLowerCase() === 'span') {
+					container.removeChild(target);
 				}
+			}
+
+			//搜索功能
+			function matchInput() {
+
+				for (var i = 0; i < spans.length; i++) {
+					var innertext = spans[i].innerText;
+					if (innertext.indexOf(matchValue) !== -1) {
+						var str = spans[i].innerHTML;
+						
+						str = str.replace(matchValue,  matchValue + 'p');
+						spans[i].innerHTML = str;
+					}
+				}
+
 			}
 		</script>
 	</body>
