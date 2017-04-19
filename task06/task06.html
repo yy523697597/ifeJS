@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>IFE JS task06</title>
+		<style>
+			body {
+				font-family: "微软雅黑";
+			}
+			
+			span {
+				margin-top: 10px;
+				display: inline-block;
+				text-align: center;
+				width: 30px;
+				background-color: red;
+				color: #fff;
+				margin-right: 5px;
+				cursor: pointer;
+			}
+			
+			button {
+				width: 100px;
+				height: 30px;
+				background-color: #fff;
+				border: 1px solid #222;
+				border-radius: 3px;
+				transition: all .5s;
+				margin-right: 5px;
+			}
+			
+			button:hover {
+				background-color: #f77c81;
+				color: #fff;
+			}
+			
+			div {
+				margin-bottom: 20px;
+				width: 700px;
+				/*margin: 0 auto;*/
+			}
+			
+			input {
+				width: 200px;
+				height: 25px;
+				border-radius: 3px;
+			}
+			
+			textarea {
+				border-radius: 3px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div>
+			<textarea name="inputBox" rows="" cols=""></textarea>
+
+			<button id="leftIn">左侧入</button>
+			<button id="rightIn">右侧入</button>
+			<button id="leftOut">左侧出</button>
+			<button id="rightOut">右侧出</button>
+
+		</div>
+		<div>
+			<input type="text" id="search" />
+			<button id="search">搜索</button>
+		</div>
+		<div id="container">
+			<span>10</span>
+			<span>3</span>
+			<span>4</span>
+			<span>12</span>
+			<span>11</span>
+			<span>30</span>
+		</div>
+		<script>
+			var leftInBtn = document.getElementById('leftIn');
+			var rightInBtn = document.getElementById('rightIn');
+			var leftOutBtn = document.getElementById('leftOut');
+			var rightOutBtn = document.getElementById('rightOut');
+			var container = document.getElementById('container');
+			var spans = document.getElementsByTagName('span');
+			var textarea = document.getElementsByTagName('textarea');
+			var arr = [];
+			//获取textarea输入值，并存储到数组中
+			function getInputValue() {
+				var str = textarea.value;
+				var tempArr = str.split('//');
+			}
+
+			leftInBtn.onclick = function() {
+
+				var container = document.getElementById('container');
+				var inputBox = document.getElementById('in');
+				var value = inputBox.value;
+				if(value) {
+					//获取container的第一个子元素
+					var firstSpan = container.firstChild;
+					//生成一个span元素
+					var span = document.createElement('span');
+					span.innerText = value;
+					//将生成的span插入到第一个子元素之前
+					container.insertBefore(span, firstSpan);
+				}
+
+			}
+
+			rightInBtn.onclick = function() {
+				var inputBox = document.getElementById('in');
+				var value = inputBox.value;
+				if(value) {
+					var span = document.createElement('span');
+					span.innerText = value;
+					container.appendChild(span);
+				}
+
+			};
+
+			leftOutBtn.onclick = function() {
+				var container = document.getElementById('container');
+				var firstSpan = container.children[0];
+
+				var spanValue = firstSpan.innerText;
+				container.removeChild(firstSpan);
+				alert(spanValue);
+			};
+
+			rightOutBtn.onclick = function() {
+				var container = document.getElementById('container');
+				var spans = document.getElementById('container').getElementsByTagName('span')
+				var lastSpan = container.children[spans.length - 1];
+				var spanValue = lastSpan.innerText;
+				container.removeChild(lastSpan);
+				alert(spanValue);
+			}
+			for(var i = 0; i < spans.length; i++) {
+				spans[i].onclick = function() {
+					container.removeChild(this);
+				}
+			}
+		</script>
+	</body>
+
+</html>
