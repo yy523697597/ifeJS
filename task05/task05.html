@@ -3,7 +3,7 @@
 
 	<head>
 		<meta charset="UTF-8">
-		<title>IFE JS task04</title>
+		<title>IFE JS task05</title>
 		<style>
 			body {
 				width: 500px;
@@ -48,7 +48,7 @@
 			var inputBox = document.getElementById('in');
 			//新建一个数组用于存储输入的值
 			var arr = [];
-			
+
 			//输入框失去焦点的时候，判断用户输入的值是否合法
 			inputBox.onblur = function() {
 				var inputValue = inputBox.value;
@@ -57,28 +57,28 @@
 					alert('请输入10-100之间的数字');
 				}
 			}
-			
+
 			//队列数量过多，发出提示
 			if(spans.length > 60) {
 				alert('队列数量大于60个，太多了！');
 			}
-			
+
 			leftInBtn.onclick = function() {
 				leftIn();
 			}
-			
+
 			rightInBtn.onclick = function() {
 				rightIn()
 			};
-			
+
 			leftOutBtn.onclick = function() {
 				leftOut();
 			};
-			
+
 			rightOutBtn.onclick = function() {
 				rightOut();
 			};
-			
+
 			// 排序按钮
 			sortBtn.onclick = function() {
 				sort();
