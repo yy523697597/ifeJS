@@ -152,7 +152,7 @@
 			//点击container中的span，移除span
 			function clickRemove(evt) {
 				var target = evt.target;
-				if (target.nodeName.toLocaleLowerCase() === 'span') {
+				if(target.nodeName.toLocaleLowerCase() === 'span') {
 					container.removeChild(target);
 				}
 			}
@@ -160,13 +160,12 @@
 			//搜索功能
 			function matchInput() {
 
-				for (var i = 0; i < spans.length; i++) {
+				for(var i = 0; i < spans.length; i++) {
 					var innertext = spans[i].innerText;
-					if (innertext.indexOf(matchValue) !== -1) {
-						var str = spans[i].innerHTML;
-						
-						str = str.replace(matchValue,  matchValue + 'p');
-						spans[i].innerHTML = str;
+					var pattern = new RegExp(matchValue, 'g');
+					
+					if(pattern.test(innertext)) {
+						spans[i].style.backgroundColor="yellowgreen";
 					}
 				}
 
