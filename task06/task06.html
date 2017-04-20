@@ -162,7 +162,8 @@
 
 				for(var i = 0; i < spans.length; i++) {
 					var innertext = spans[i].innerText;
-					var pattern = new RegExp(matchValue, 'g');
+					var pattern = new RegExp(matchValue, 'gi');
+					console.log(pattern)
 					
 					if(pattern.test(innertext)) {
 						spans[i].style.backgroundColor="yellowgreen";
