@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>ife js task07</title>
+		<style type="text/css">
+			.level1,
+			.level2,
+			.level3 {
+				display: flex;
+				justify-content: space-around;
+				align-items: center;
+				border: 5px solid #ccc;
+				transition: all 1s;
+				
+			}
+			
+			.level1 {
+				width: 400px;
+				height: 300px;
+			}
+			
+			.level2 {
+				width: 180px;
+				height: 180px;
+			}
+			
+			.level3 {
+				width: 80px;
+				height: 80px;
+			}
+			
+			.level4 {
+				width: 25px;
+				height: 25px;
+			}
+			
+			button {
+				width: 100px;
+				height: 40px;
+				text-align: center;
+				background: transparent;
+				border: 1px solid #eee;
+				border-radius: 5px;
+				margin: 10px;
+				transition: all 1s;
+				font-family: "微软雅黑";
+			}
+			
+			button:hover {
+				background: #FF7F7F;
+				color: #fff;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="level1" id="root">
+			<div class="level2">
+				<div class="level3">
+					<div class="level4"></div>
+					<div class="level4"></div>
+				</div>
+				<div class="level3">
+					<div class="level4"></div>
+					<div class="level4"></div>
+				</div>
+			</div>
+			<div class="level2">
+				<div class="level3">
+					<div class="level4"></div>
+					<div class="level4"></div>
+				</div>
+				<div class="level3">
+					<div class="level4"></div>
+					<div class="level4"></div>
+				</div>
+			</div>
+
+		</div>
+		<button id="preOrder">前序遍历</button>
+		<button id="inOrder">中序遍历</button>
+		<button id="postOrder">后序遍历</button>
+		<script type="text/javascript">
+			
+			function preOrder(node) {
+				if(node !== null) {
+					
+					setTimeout(function(){
+						node.style.borderColor = "red";
+					},2000);
+					
+					
+					if(node.children[0] !== null) {
+						preOrder(node.children[0]);
+					}
+					
+					if(node.children[1] !== null) {
+						preOrder(node.children[1]);
+					}
+
+				}
+			}
+
+			function inOrder(node) {
+				if(node !== null) {
+					inOrder(node.children[0]);
+					node.style.borderColor = "yellow";
+					inOrder(node.children[1]);
+				}
+			}
+
+			function postOrder(node) {
+				if(node !== null) {
+					postOrder(node.children[0]);
+					postOrder(node.children[1]);
+					node.style.borderColor = "yellow";
+				}
+			}
+
+			function init() {
+				
+				
+			}
+			init();
+		</script>
+	</body>
+
+</html>
