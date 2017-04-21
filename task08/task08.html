@@ -116,7 +116,7 @@
 			<button id="preOrder">前序查找</button>
 			<button id="postOrder">后序查找</button>
 		</div>
-		
+
 		<script type="text/javascript">
 			//声明计时器
 			var timer = null;
@@ -124,7 +124,7 @@
 			//边框变化动画
 			function start() {
 				var inputValue = document.getElementById('inputBox').value;
-				
+
 				var i = 0;
 				//第一个元素的边框先设置为红色
 				arr[i].style.borderColor = '#FF7F7F';
@@ -138,10 +138,13 @@
 						arr[i - 1].style.borderColor = '#ccc';
 						arr[i].style.color = '#FF7F7F';
 						arr[i - 1].style.color = '#000';
-						//使用firstChild.nodeValue 来只获取自身内容而不获取   自身和子元素的内容
-						if(inputValue!=='' && arr[i].firstChild.nodeValue.indexOf(inputValue) !== -1){
+						//使用firstChild.nodeValue 来只获取自身内容而不获取   自身和子元素的内容，判断输入的值是否存在于节点当中
+						if(inputValue !== '' && arr[i].firstChild.nodeValue.indexOf(inputValue) !== -1) {
 							clearInterval(timer);
 							alert('找到了！');
+						}
+						if(inputValue !== '' && arr[i].firstChild.nodeValue.indexOf(inputValue) === -1){
+							alert('没找到！');
 						}
 
 					} else {
@@ -164,7 +167,6 @@
 					divs[i].style.color = '#000';
 				}
 			}
-			
 
 			//前序遍历
 			function preOrder(node) {
@@ -177,7 +179,7 @@
 					}
 				}
 			}
-			
+
 			//后序遍历
 			function postOrder(node) {
 				if(node !== null) {
@@ -207,7 +209,7 @@
 								start();
 								break;
 							}
-						
+
 						case 'postOrder':
 							{
 								reset();
