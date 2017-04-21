@@ -138,14 +138,12 @@
 						arr[i - 1].style.borderColor = '#ccc';
 						arr[i].style.color = '#FF7F7F';
 						arr[i - 1].style.color = '#000';
-						//使用firstChild.nodeValue 来只获取自身内容而不获取   自身和子元素的内容，判断输入的值是否存在于节点当中
+						//使用firstChild.nodeValue 来只获取自身内容，而不获取子元素的内容，通过indexOf判断输入的值是否与节点的文本匹配
 						if(inputValue !== '' && arr[i].firstChild.nodeValue.indexOf(inputValue) !== -1) {
 							clearInterval(timer);
 							alert('找到了！');
 						}
-						if(inputValue !== '' && arr[i].firstChild.nodeValue.indexOf(inputValue) === -1){
-							alert('没找到！');
-						}
+						
 
 					} else {
 						//遍历完后，清除定时器，重置最后一个边框颜色
