@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>ife js task08</title>
+		<style type="text/css">
+			body {
+				width: 900px;
+				margin: 0 auto;
+			}
+			
+			.level1,
+			.level2,
+			.level3,
+			.level4 {
+				display: flex;
+				justify-content: space-around;
+				align-items: center;
+				border: 3px solid #ccc;
+				transition: all 1s;
+			}
+			
+			.level1 {
+				width: 900px;
+				height: 300px;
+			}
+			
+			.level2 {
+				width: 400px;
+				height: 180px;
+			}
+			
+			.level3 {
+				width: 110px;
+				height: 80px;
+			}
+			
+			.level4 {
+				width: 25px;
+				height: 50px;
+			}
+			
+			button {
+				width: 100px;
+				height: 40px;
+				text-align: center;
+				background: transparent;
+				border: 1px solid #eee;
+				border-radius: 5px;
+				margin: 10px;
+				transition: all 1s;
+				font-family: "微软雅黑";
+			}
+			
+			button:hover {
+				background: #FF7F7F;
+				color: #fff;
+			}
+			
+			input {
+				height: 30px;
+				width: 100px;
+				border: 1px solid #ccc;
+				border-radius: 5px;
+				transition: all 1s;
+				margin-left: 10px;
+			}
+			
+			input:focus {
+				width: 150px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="level1" id="root">
+			man
+			<div class="level2">
+				cat
+				<div class="level3">
+					wait
+					<div class="level4">i</div>
+					<div class="level4">f</div>
+				</div>
+				<div class="level3">
+					tip
+					<div class="level4">t</div>
+					<div class="level4">h</div>
+				</div>
+				<div class="level3">
+					yui
+					<div class="level4">e</div>
+					<div class="level4">z</div>
+				</div>
+			</div>
+			<div class="level2">
+				want
+				<div class="level3">
+					fl
+					<div class="level4">q</div>
+					<div class="level4">z</div>
+					<div class="level4">i</div>
+
+				</div>
+				<div class="level3">
+					iop
+					<div class="level4">m</div>
+					<div class="level4">n</div>
+				</div>
+			</div>
+
+		</div>
+		<div id="button_container">
+			<input type="" name="inputBox" id="inputBox" value="" />
+			<button id="preOrder">前序查找</button>
+			<button id="postOrder">后序查找</button>
+		</div>
+		
+		<script type="text/javascript">
+			//声明计时器
+			var timer = null;
+
+			//边框变化动画
+			function start() {
+				var inputValue = document.getElementById('inputBox').value;
+				
+				var i = 0;
+				//第一个元素的边框先设置为红色
+				arr[i].style.borderColor = '#FF7F7F';
+				arr[i].style.color = '#FF7F7F';
+				timer = setInterval(function() {
+					//当i=0时，i++之后为1
+					i++;
+					//后一个边框变色之后，前一个边框重置为初始颜色
+					if(i < arr.length) {
+						arr[i].style.borderColor = '#FF7F7F';
+						arr[i - 1].style.borderColor = '#ccc';
+						arr[i].style.color = '#FF7F7F';
+						arr[i - 1].style.color = '#000';
+						//使用firstChild.nodeValue 来只获取自身内容而不获取   自身和子元素的内容
+						if(inputValue!=='' && arr[i].firstChild.nodeValue.indexOf(inputValue) !== -1){
+							clearInterval(timer);
+							alert('找到了！');
+						}
+
+					} else {
+						//遍历完后，清除定时器，重置最后一个边框颜色
+						clearInterval(timer);
+						arr[arr.length - 1].style.borderColor = '#ccc';
+						arr[arr.length - 1].style.color = '#000';
+					}
+				}, 2000);
+
+			}
+
+			//重置边框颜色和数组
+			function reset() {
+				arr = [];
+				clearInterval(timer);
+				var divs = document.getElementsByTagName('div');
+				for(var i = 0; i < divs.length; i++) {
+					divs[i].style.borderColor = '#ccc';
+					divs[i].style.color = '#000';
+				}
+			}
+			
+
+			//前序遍历
+			function preOrder(node) {
+				if(node !== null) {
+					arr.push(node);
+					//通过children获取所有子节点，依次将节点添加到数组中
+					var childrenNodes = node.children;
+					for(var i = 0; i < childrenNodes.length; i++) {
+						preOrder(childrenNodes[i]);
+					}
+				}
+			}
+			
+			//后序遍历
+			function postOrder(node) {
+				if(node !== null) {
+					//通过children获取所有子节点，依次将节点添加到数组中
+					var childrenNodes = node.children;
+					for(var i = 0; i < childrenNodes.length; i++) {
+						preOrder(childrenNodes[i]);
+					}
+					arr.push(node);
+				}
+			}
+			//初始化
+			function init() {
+				var root = document.getElementById('root');
+				var arr = [];
+
+				//使用事件委托来提高性能
+				//当按钮按下的时候，重置边框颜色，运行遍历，开始动画，然后break退出switch
+				var button = document.getElementById('button_container');
+
+				button.addEventListener('click', function(evt) {
+					switch(evt.target.id) {
+						case 'preOrder':
+							{
+								reset();
+								preOrder(root);
+								start();
+								break;
+							}
+						
+						case 'postOrder':
+							{
+								reset();
+								postOrder(root);
+								start();
+								break;
+							}
+					}
+				});
+			}
+			//运行初始化
+			init();
+		</script>
+	</body>
+
+</html>
